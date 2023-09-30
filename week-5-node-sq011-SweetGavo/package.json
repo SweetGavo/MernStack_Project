@@ -1,0 +1,28 @@
+{
+  "name": "week-5-node-sq011-sweetgavo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/decadevs/week-5-node-sq011-SweetGavo.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/decadevs/week-5-node-sq011-SweetGavo/issues"
+  },
+  "homepage": "https://github.com/decadevs/week-5-node-sq011-SweetGavo#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.16",
+    "ts-node": "^10.8.1",
+    "typescript": "^4.7.3"
+  },
+  "dependencies": {
+    "@types/node": "^17.0.42"
+  }
+}

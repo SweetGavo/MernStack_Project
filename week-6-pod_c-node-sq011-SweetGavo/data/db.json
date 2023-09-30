@@ -1,0 +1,32 @@
+[
+  {
+    "bookId": "fe44f427-4ec2-41cc-8689-44f27ca38a91",
+    "title": "Watch Night",
+    "author": "Sam Smith",
+    "datePublished": "20-06-1893",
+    "description": "War",
+    "pageCount": 6,
+    "genre": "I don't know",
+    "publisher": "St. John"
+  },
+  {
+    "bookId": "31583abc-85f6-43c8-9981-789c75e1739e",
+    "title": "Watch Night",
+    "author": "Sam Smith",
+    "datePublished": "20-06-1893",
+    "description": "War",
+    "pageCount": 6,
+    "genre": "I don't know",
+    "publisher": "St. John"
+  },
+  {
+    "bookId": "8b16b912-36b3-496d-9ef4-35e83fa8fd15",
+    "title": "Watch Night",
+    "author": "Sam Smith",
+    "datePublished": "20-06-1893",
+    "description": "War",
+    "pageCount": 6,
+    "genre": "I don't know",
+    "publisher": "St. John"
+  }
+]

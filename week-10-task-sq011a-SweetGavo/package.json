@@ -1,0 +1,23 @@
+{
+  "name": "week-10-task-sq011a-sweetgavo",
+  "version": "1.0.0",
+  "description": "### 1. Convert your rest API from week 9 into GraphQL ### 2. Consume you GraphQL apis in your frontend application",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/decadevs/week-10-task-sq011a-SweetGavo.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/decadevs/week-10-task-sq011a-SweetGavo/issues"
+  },
+  "homepage": "https://github.com/decadevs/week-10-task-sq011a-SweetGavo#readme",
+  "dependencies": {
+    "express": "^4.18.1",
+    "express-graphql": "^0.12.0"
+  }
+}
