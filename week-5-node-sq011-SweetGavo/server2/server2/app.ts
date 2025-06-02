@@ -17,6 +17,12 @@ const server: Server = http.createServer(
     
       };
 
+      if (!req.url || !req.url.startsWith("/")) {
+        res.writeHead(400, { "Content-Type": "application/json" });
+        res.end(JSON.stringify({ message: "Missing or invalid URL" }));
+        return;
+      }
+
       let err;
       try {
         let result = await parser(url);
@@ -41,11 +47,11 @@ const server: Server = http.createServer(
        
         if (err) {
           
-          res.writeHead(400, { "Content-Type": "applivation/json" });
+          res.writeHead(400, { "Content-Type": "application/json" });
           res.end(JSON.stringify({ message: "Invalid request" }));
           return 0;
         } else {
-          res.writeHead(200, { "Content-Type": "applivation/json" });
+          res.writeHead(200, { "Content-Type": "application/json" });
           res.end(JSON.stringify({ message }));
           return 1;
         }
@@ -55,7 +61,7 @@ const server: Server = http.createServer(
 );
 
 server.listen(3002, () => {
-  console.log(`Server is presently running on port. Go to http://localhost:3001`);
+  console.log(`Server is presently running on port. Go to http://localhost:3002`);
   
 });
 

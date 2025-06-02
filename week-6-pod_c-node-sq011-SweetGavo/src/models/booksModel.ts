@@ -1,9 +1,10 @@
-const db = require('../../db.json');
+const db = require('../../data/db.json');
 const fs = require('fs')
-import { json } from 'stream/consumers';
 import { v4 as uuidv4 } from 'uuid'
-const { customWriteToFile } = require('../utility');
-
+const { customWriteToFile } = require('../utils/utility');
+import path from 'path';
+const dbPath = path.join(__dirname, '../../data/db.json');
+import { promises as fsPromises } from 'fs';
 
 const create = async (data: Record<string,string> | []) => {
     if(fs.existsSync('./data/db.json')) {
@@ -37,11 +38,11 @@ const create = async (data: Record<string,string> | []) => {
 }
 
 
-const getAllBooks = async (data: Record<string,string> | []) => {
-    if(fs.existsSync('./data/db.json')) {
+const getAllBooks = async () => {
+    if(fs.existsSync(dbPath)) {
         return new Promise((resolve, reject) => {
-            let dataExist = fs.readFileSync('./data/db.json');
-            let books = JSON.parse(dataExist.toString())
+            let dataExist = fs.readFileSync(dbPath);   
+            let books = JSON.parse(dataExist.toString())     
             resolve(books)
         })
     } else {
@@ -50,6 +51,8 @@ const getAllBooks = async (data: Record<string,string> | []) => {
         })
     }
 }
+
+
 
 const deleteData = async (dataId: string) => {
     if(fs.existsSync('./data/db.json')) {
@@ -104,6 +107,7 @@ const  editBook = async (dataId: string,bookObj:any) => {
 
                     // filter((item: any) => item.bookId !== dataId)
                 customWriteToFile('./data/db.json', JSON.stringify(books))
+              console.log(`Book with id ${dataId} successfully updated`);
 
                 resolve(books[bookIndex])
             } else {
@@ -128,14 +132,17 @@ function getBooks() {
     })
 }
 
-function findById(str: string) {
-    return new Promise((resolve, reject) => {
-        const id: number = parseInt(str);
-        const book = db.find((book: { id: number; }) => book.id === id);
-        resolve(book);
-    })
-}
-module.exports = {
+const findById = async (id: string) => {
+    try {
+      const dataExist = await fsPromises.readFile('./data/db.json', 'utf-8');
+      const books = JSON.parse(dataExist);
+      return books.find((book: any) => book.bookId === id) || null;
+    } catch (error) {
+      console.error('Error reading file:', error);
+      return null;
+    }
+  };
+export {
     getBooks,
     findById,
     create,

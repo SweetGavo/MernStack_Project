@@ -14,6 +14,11 @@ const server = http_1.default.createServer(async (req, res) => {
             description: "none",
             title: null
         };
+        if (!req.url || !req.url.startsWith("/")) {
+            res.writeHead(400, { "Content-Type": "application/json" });
+            res.end(JSON.stringify({ message: "Missing or invalid URL" }));
+            return;
+        }
         let err;
         try {
             let result = await html_metadata_parser_1.parser(url);
@@ -33,12 +38,12 @@ const server = http_1.default.createServer(async (req, res) => {
         }
         finally {
             if (err) {
-                res.writeHead(400, { "Content-Type": "applivation/json" });
+                res.writeHead(400, { "Content-Type": "application/json" });
                 res.end(JSON.stringify({ message: "Invalid request" }));
                 return 0;
             }
             else {
-                res.writeHead(200, { "Content-Type": "applivation/json" });
+                res.writeHead(200, { "Content-Type": "application/json" });
                 res.end(JSON.stringify({ message }));
                 return 1;
             }
@@ -46,5 +51,5 @@ const server = http_1.default.createServer(async (req, res) => {
     }
 });
 server.listen(3002, () => {
-    console.log(`Server is presently running on port. Go to http://localhost:3001`);
+    console.log(`Server is presently running on port. Go to http://localhost:3002`);
 });

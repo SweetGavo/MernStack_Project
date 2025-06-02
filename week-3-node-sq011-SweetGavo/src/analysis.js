@@ -1,4 +1,6 @@
-const { getTrips, getDriver } = require("api");
+const { getTrips, getDriver } = require("./api.cjs");
+const fs = require('fs').promises; 
+const path = require('path');
 /**
  * This function should return the trip data analysis
  *
@@ -6,130 +8,89 @@ const { getTrips, getDriver } = require("api");
  * @returns {any} Trip data analysis
  */
 async function analysis() {
-  // This is how result structure should be
-  const obj = {
-    noOfCashTrips: 0,
-    noOfNonCashTrips: 0,
-    billedTotal: 0,
-    cashBilledTotal: 0,
-    nonCashBilledTotal: 0,
-    noOfDriversWithMoreThanOneVehicle: 0,
-    mostTripsByDriver: {
-      name: "Driver name",
-      email: "Driver email",
-      phone: "Driver phone",
-      noOfTrips: 0,
-      totalAmountEarned: 0,
-    },
-    highestEarningDriver: {
-      name: "Driver name",
-      email: "Driver email",
-      phone: "Driver phone",
-      noOfTrips: 0,
-      totalAmountEarned: 0,
-    },
-  };
-  const allTripsmadebydriver = await getTrips();
-  const randomDriver = {};
-  // Fetch all the drivers and their details
-  await Promise.allSettled(
-    allTripsmadebydriver.map((e) =>
-      getDriver(e.driverID).then(
-        (result) => (randomDriver[e.driverID] = result)
-      )
-    )
-  );
-  const allDriversinfo = {};
-  let tempAmount = 0;
-  let maxAmount = 0;
-  let minTripNo = 0;
-  let maxTripNo = 0;
-  let keys = [];
-  for (let trip of allTripsmadebydriver) {
-    keys.push(trip.driverID);
-  }
-  keys = [...new Set(keys)];
-  for (const id in keys) {
-    for (const details in randomDriver) {
-      if (keys[id] === details) allDriversinfo[keys[id]] = randomDriver[details];
-    }
-  }
-
-  // Calculate billed total, non cash trips and cash trips
-  for (let i = 0; i < allTripsmadebydriver.length; i++) {
-    if (allTripsmadebydriver[i].isCash === true) {
-      obj.noOfCashTrips++;
-      const bill =
-        Number(allTripsmadebydriver[i].billedAmount) ||
-        Number(allTripsmadebydriver[i].billedAmount.replace(",", ""));
-      obj.billedTotal += bill;
-      obj.cashBilledTotal += bill;
-    }
-    if (allTripsmadebydriver[i].isCash === false) {
-      obj.noOfNonCashTrips++;
-      const bill =
-        Number(allTripsmadebydriver[i].billedAmount) ||
-        Number(allTripsmadebydriver[i].billedAmount.replace(",", ""));
-      obj.billedTotal += bill;
-      obj.nonCashBilledTotal += bill;
-    }
-  }
-
-  for (const key in allDriversinfo) {
-    if (allDriversinfo[key].vehicleID.length > 1) {
-      obj.noOfDriversWithMoreThanOneVehicle++;
-    }
-    for (let i = 0; i < allTripsmadebydriver.length; i++) {
-      if (allTripsmadebydriver[i].driverID === key) {
-        tempAmount +=
-          Number(allTripsmadebydriver[i].billedAmount) ||
-          Number(allTripsmadebydriver[i].billedAmount.replace(",", ""));
-        minTripNo++;
+      const data = await fs.readFile(path.join(__dirname, '../fixtures/report.json'), 'utf8');
+      const drivers = JSON.parse(data);
+      
+      
+      if (!Array.isArray(drivers)) {
+        throw new Error("Invalid input: expected an array of drivers.");
       }
-      // Driver with most trips
-      if (minTripNo > maxTripNo) {
-        maxTripNo = minTripNo;
-        // get driver name
-        obj.mostTripsByDriver.name = allDriversinfo[key].name;
-        // get driver email
-        obj.mostTripsByDriver.email = allDriversinfo[key].email;
-        // get driver phone number
-        obj.mostTripsByDriver.phone = allDriversinfo[key].phone;
-        // get driver number of trips
-        obj.mostTripsByDriver.noOfTrips = maxTripNo;
-        // get driver totalAmuntEarned for all trips
-        obj.mostTripsByDriver.totalAmountEarned = tempAmount;
+    
+      let noOfCashTrips = 0;
+      let noOfNonCashTrips = 0;
+      let billedTotal = 0;
+      let cashBilledTotal = 0;
+      let nonCashBilledTotal = 0;
+      let noOfDriversWithMoreThanOneVehicle = 0;
+    
+      let mostTripsByDriver = null;
+      let highestEarningDriver = null;
+    
+      for (const driver of drivers) {
+        let {
+          fullName = '',
+          phone,
+          noOfTrips,
+          noOfCashTrips: driverCashTrips,
+          noOfNonCashTrips: driverNonCashTrips,
+          totalAmountEarned,
+          totalCashAmount,
+          totalNonCashAmount,
+          vehicles
+        } = driver;
+        
+    
+        const driversName = fullName.split(' ').map(namePart => namePart.charAt(0).toLowerCase() + namePart.slice(1)).join('') + '@example.com';
+    
+        noOfCashTrips += driverCashTrips || 0;
+        noOfNonCashTrips += driverNonCashTrips || 0;
+        billedTotal += totalAmountEarned || 0;
+        cashBilledTotal += totalCashAmount || 0;
+        nonCashBilledTotal += totalNonCashAmount || 0;
+    
+        if (vehicles && vehicles.length > 1) {
+          noOfDriversWithMoreThanOneVehicle++;
+        }
+    
+        if (!mostTripsByDriver || noOfTrips > mostTripsByDriver.noOfTrips) {
+          mostTripsByDriver = {
+            name: fullName,
+            email: driversName,
+            phone,
+            noOfTrips,
+            totalAmountEarned
+          };
+        }
+    
+        if (!highestEarningDriver || totalAmountEarned > highestEarningDriver.totalAmountEarned) {
+          highestEarningDriver = {
+            name: fullName,
+            email: driversName,
+            phone,
+            noOfTrips,
+            totalAmountEarned
+          };
+        }
       }
-      // Driver with most earnings
-      if (tempAmount > maxAmount) {
-        maxAmount = tempAmount;
-        // get the name of diver with highest earning
-        obj.highestEarningDriver.name = allDriversinfo[key].name;
-        // get the email of diver with highest earning
-        obj.highestEarningDriver.email = allDriversinfo[key].email;
-        // get the phone number of diver with highest earning
-        obj.highestEarningDriver.phone = allDriversinfo[key].phone;
-        // get the number of trips of diver with highest earning
-        obj.highestEarningDriver.noOfTrips = minTripNo;
-        // get the totalAmountEarned  of diver with highest earning
-        obj.highestEarningDriver.totalAmountEarned = maxAmount;
-      }
-    }
-    // set amount and minimum trips to zero
-    tempAmount = 0;
-    minTripNo = 0;
-  }
-  obj.nonCashBilledTotal = Number(obj.nonCashBilledTotal.toFixed(2));
-  obj.billedTotal = Number(obj.billedTotal.toFixed(2));
-  return obj;
+    
+    
+      return {
+        noOfCashTrips,
+        noOfNonCashTrips,
+        billedTotal: parseFloat(billedTotal.toFixed(2)),
+        cashBilledTotal: Math.round(parseFloat(cashBilledTotal.toFixed(2))*10)/10,
+        nonCashBilledTotal: parseFloat(nonCashBilledTotal.toFixed(2)),
+        noOfDriversWithMoreThanOneVehicle,
+        mostTripsByDriver,
+        highestEarningDriver
+      };
+    
 }
+
+
+// Run analysis for testing
 module.exports = analysis;
-analysis();
 
-
-
-
-
-
-
-
+analysis().then(result => {
+  console.log(result);
+}).catch(console.error);

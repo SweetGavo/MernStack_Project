@@ -1,34 +1,71 @@
-import path from 'path';
 import fs from 'fs';
-// import {Transform} from 'stream';
+import path from 'path';
+import { parse } from 'csv-parse/sync';
+
+type AnalysisReport = {
+  totalEmails: number;
+  uniqueEmails: number;
+  duplicateEmails: string[];
+  domains: {
+    [domain: string]: string[];
+  };
+};
+
 /**
- * First task - Read the csv files in the inputPath and analyse them
- *
- * @param {string[]} inputPaths An array of csv files to read
- * @param {string} outputPath The path to output the analysis
+ * Analyse CSV files for email addresses
+ * @param inputPaths - Array of CSV file paths
+ * @param outputPath - Path to write the output JSON file
  */
 async function analyseFiles(inputPaths: string[], outputPath: string) {
+  const emailSet = new Set<string>();
+  const duplicateEmails: string[] = [];
+  const domainMap: Record<string, Set<string>> = {};
 
-  const filePath = path.join(process.cwd(), inputPaths[0])
+  for (const filePath of inputPaths) {
+    const absolutePath = path.resolve(filePath);
+    const content = fs.readFileSync(absolutePath, 'utf-8');
 
-  const stream = fs.createReadStream(filePath);
+    const records: string[][] = parse(content, {
+      skip_empty_lines: true,
+    });
 
-  let array: string[] = [];
+    const header = records[0];
+    const emailIndex = header.findIndex(h => h.toLowerCase() === 'email');
 
-  for await (let element of stream){
-    array.push(...element.toString().split('\n'));
+    if (emailIndex === -1) {
+      console.warn(`⚠️ No 'email' column in: ${filePath}`);
+      continue;
+    }
+
+    for (let i = 1; i < records.length; i++) {
+      const row = records[i];
+      const email = row[emailIndex]?.toLowerCase().trim();
+      if (!email) continue;
+
+      if (emailSet.has(email)) {
+        duplicateEmails.push(email);
+      } else {
+        emailSet.add(email);
+        const domain = email.split('@')[1];
+        if (!domainMap[domain]) domainMap[domain] = new Set();
+        domainMap[domain].add(email);
+      }
+    }
   }
 
-  let outputArr: string[] = [];
+  const report: AnalysisReport = {
+    totalEmails: emailSet.size + duplicateEmails.length,
+    uniqueEmails: emailSet.size,
+    duplicateEmails,
+    domains: Object.fromEntries(
+      Object.entries(domainMap).map(([domain, emails]) => [domain, Array.from(emails)])
+    ),
+  };
 
-  
-  const output = path.join(outputPath);
+  const finalOutput = path.resolve(outputPath);
+  fs.writeFileSync(finalOutput, JSON.stringify(report, null, 2), 'utf-8');
 
-  let dataOutput = fs.createWriteStream(output);
-
-  const jsonString =JSON.stringify(outputArr,null,1);
-
-  dataOutput.write(jsonString);
+  console.log(`✅ Analysis complete. Report saved to ${finalOutput}`);
 }
 
 export default analyseFiles;

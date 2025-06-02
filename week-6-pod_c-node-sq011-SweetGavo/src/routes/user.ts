@@ -1,10 +1,12 @@
-let express = require('express');
-let router = express.Router();
-import { Request, Response, NextFunction } from 'express';
+import express from 'express';
+import { login, logout, signup } from '../auth/authentication';
+import { requireAuth } from '../middleware/auth.middleware';
+const router = express.Router();
 
-/* GET users listing. */
-router.get('/', function(req: Request, res: Response, next: NextFunction) {
-  res.send('respond with a resource');
-});
 
-module.exports = router;
+router.post('/signup',requireAuth, signup);
+router.post('/login',requireAuth, login);
+router.get('/logout', logout);
+
+
+export default router;

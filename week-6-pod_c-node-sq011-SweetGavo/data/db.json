@@ -6,7 +6,7 @@
     "datePublished": "20-06-1893",
     "description": "War",
     "pageCount": 6,
-    "genre": "I don't know",
+    "genre": "Classic",
     "publisher": "St. John"
   },
   {
@@ -28,5 +28,15 @@
     "pageCount": 6,
     "genre": "I don't know",
     "publisher": "St. John"
+  },
+  {
+    "bookId": "88dd2748-1b9e-40cd-9986-e55b19f67391",
+    "title": "Cold Blooded",
+    "author": "Razvan Cajanu",
+    "datePublished": "2002-02-02",
+    "pageCount": "489",
+    "genre": "mystery",
+    "publisher": "paper de france",
+    "description": "Good"
   }
 ]
