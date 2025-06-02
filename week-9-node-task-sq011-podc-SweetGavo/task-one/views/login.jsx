@@ -1,6 +1,5 @@
 <html lang="en">
   <body>
-
     <div class="containerss">
       <div class="row">
         <div class="col-md-3"></div>
@@ -31,13 +30,17 @@
                 required
               />
             </div>
-            <button type="submit" class="btn btn-primary">Login</button>
+            <button type="submit" class="btn btn-primary">
+              Login
+            </button>
           </form>
           <hr />
-          <p>Don't have an account? <a href="/register">SIGN UP</a></p>
+          <p>
+            Don't have an account? <a href="/register">SIGN UP</a>
+          </p>
         </div>
         <div class="col-md-3"></div>
       </div>
     </div>
   </body>
-</html>
+</html>;

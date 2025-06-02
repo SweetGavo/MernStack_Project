@@ -1,64 +1,62 @@
-const fsmodule = require('fs');
-const path  = require('path')
-const { v4: uuidv4 } = require('uuid')
-const writeData = require('../utils')
-const filePath = path.resolve('../server/server/data/database.json');
+const fsmodule = require("fs");
+const path = require("path");
+const { v4: uuidv4 } = require("uuid");
+const writeData = require("../utils");
+const filePath = path.resolve("../server/server/data/database.json");
 
 let data = fsmodule.readFileSync(filePath);
 console.log();
 
 let database = JSON.parse(data);
 
-
-
 function findAll() {
-    return new Promise((resolve, reject) => {
-        resolve(database)
-    })
+  return new Promise((resolve, reject) => {
+    resolve(database);
+  });
 }
 
 function findById(id: any) {
-    return new Promise((resolve, reject) => {
-        const organisation = database.find((p: { id: any }) => p.id == id)
-        resolve(organisation)
-    })
+  return new Promise((resolve, reject) => {
+    const organisation = database.find((p: { id: any }) => p.id == id);
+    resolve(organisation);
+  });
 }
 
 function create(organisation: any) {
-    return new Promise((resolve, reject) => {
-        const neworganisation = { id: uuidv4(), ...organisation }
-        
-        database.push(neworganisation) 
-        writeData.writeDataToFile(filePath,database );
+  return new Promise((resolve, reject) => {
+    const neworganisation = { id: uuidv4(), ...organisation };
 
-        resolve(neworganisation)
-    })
+    database.push(neworganisation);
+    writeData.writeDataToFile(filePath, database);
+
+    resolve(neworganisation);
+  });
 }
 
 function update(id: any, organisation: any) {
-    return new Promise((resolve, reject) => {
-        const index = database.findIndex((p: { id: any }) => p.id === id)
-        database[index] = {id: id, ...organisation}
-        if (process.env.NODE_ENV !== 'test') {
-            writeData.writeDataToFile(filePath, database);
-        }
-        resolve(database[index])
-    })
+  return new Promise((resolve, reject) => {
+    const index = database.findIndex((p: { id: any }) => p.id === id);
+    database[index] = { id: id, ...organisation };
+    if (process.env.NODE_ENV !== "test") {
+      writeData.writeDataToFile(filePath, database);
+    }
+    resolve(database[index]);
+  });
 }
 
 function remove(id: any) {
-    return new Promise<void>((resolve, reject) => {
-        database = database.filter((p: { id: any }) => p.id !== id)
-        
-     writeData.writeDataToFile('./data/database.json', database);
-        resolve()
-    })
+  return new Promise<void>((resolve, reject) => {
+    database = database.filter((p: { id: any }) => p.id !== id);
+
+    writeData.writeDataToFile("./data/database.json", database);
+    resolve();
+  });
 }
 
 module.exports = {
-    findAll,
-    findById,
-    create,
-    update,
-    remove
-}
+  findAll,
+  findById,
+  create,
+  update,
+  remove,
+};

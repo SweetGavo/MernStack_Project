@@ -1,5 +1,3 @@
-
-
 import { NextFunction, Request, Response } from "express";
 const jwt = require("jsonwebtoken");
 const asyncHandler = require("express-async-handler");
@@ -35,5 +33,5 @@ export const protect = asyncHandler(
       res.status(401);
       throw new Error("Not authorized, no token");
     }
-  }
+  },
 );

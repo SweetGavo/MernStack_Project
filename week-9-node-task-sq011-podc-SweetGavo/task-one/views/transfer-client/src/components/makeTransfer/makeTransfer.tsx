@@ -14,40 +14,44 @@ const MakeTransfer = () => {
     senderAccount: "",
     receiverAccount: "",
     amount: "",
-    transferDescription: ""
+    transferDescription: "",
   });
   const [message, setMessage] = useState({ text: "", type: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setForm(prev => ({ ...prev, [name]: value }));
+    setForm((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setMessage({ text: "", type: "" });
     setIsSubmitting(true);
-    
 
     try {
-      const res = await axios.post("http://localhost:5000/api/transactions/transfer", form, { 
-        withCredentials: true 
-      });
-      setMessage({ 
-        text: res.data.message || "Transfer successful!", 
-        type: "success"  
+      const res = await axios.post(
+        "http://localhost:5000/api/transactions/transfer",
+        form,
+        {
+          withCredentials: true,
+        },
+      );
+      setMessage({
+        text: res.data.message || "Transfer successful!",
+        type: "success",
       });
       setForm({
         senderAccount: "",
         receiverAccount: "",
         amount: "",
-        transferDescription: ""
+        transferDescription: "",
       });
     } catch (err: any) {
-      setMessage({ 
-        text: err.response?.data?.message || "Transfer failed. Please try again.", 
-        type: "error" 
+      setMessage({
+        text:
+          err.response?.data?.message || "Transfer failed. Please try again.",
+        type: "error",
       });
     } finally {
       setIsSubmitting(false);
@@ -58,7 +62,7 @@ const MakeTransfer = () => {
     <div className="transfer-container">
       <div className="transfer-card">
         <h2 className="transfer-title">Make a Transfer</h2>
-        
+
         <form onSubmit={handleSubmit} className="transfer-form">
           <div className="form-group">
             <label htmlFor="senderAccount">From Account</label>
@@ -117,8 +121,8 @@ const MakeTransfer = () => {
             />
           </div>
 
-          <button 
-            type="submit" 
+          <button
+            type="submit"
             className="transfer-button"
             disabled={isSubmitting}
           >
@@ -133,9 +137,7 @@ const MakeTransfer = () => {
         </form>
 
         {message.text && (
-          <div className={`message ${message.type}`}>
-            {message.text}
-          </div>
+          <div className={`message ${message.type}`}>{message.text}</div>
         )}
       </div>
     </div>

@@ -1,6 +1,7 @@
-# 1  Typescript - Web Scrapping
+# 1 Typescript - Web Scrapping
 
 ### Setup
+
 1. `yarn tsc` - to transpile to js lib/app
 2. `yarn serve` - to start the server
 

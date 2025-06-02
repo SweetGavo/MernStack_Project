@@ -1,4 +1,3 @@
-
 import fs from 'fs';
 import path from 'path';
 import dns, { MxRecord } from 'dns';
@@ -10,7 +9,6 @@ import { parse } from 'csv-parse/sync';
  * @param {string} outputFile The path where to output the report
  *
  */
-
 
 const isValidEmail = (email: string): boolean => {
   const re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,})+$/;
@@ -25,7 +23,10 @@ const validateMx = (domain: string): Promise<boolean> => {
   });
 };
 
-async function validateEmailAddresses(inputPaths: string[], outputFile: string) {
+async function validateEmailAddresses(
+  inputPaths: string[],
+  outputFile: string,
+) {
   const emails: string[] = [];
 
   for (const inputPath of inputPaths) {

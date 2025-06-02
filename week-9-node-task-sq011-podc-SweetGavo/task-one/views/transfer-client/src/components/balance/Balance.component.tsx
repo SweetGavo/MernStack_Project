@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import '../../App.css';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import "../../App.css";
 
 interface BalanceData {
   success: boolean;
@@ -21,26 +21,35 @@ const BalanceComponent = () => {
       try {
         // Get userId from cookies
         const userId = document.cookie
-          .split('; ')
-          .find(row => row.startsWith('Uid='))
-          ?.split('=')[1];
+          .split("; ")
+          .find((row) => row.startsWith("Uid="))
+          ?.split("=")[1];
 
         if (!userId) {
-          throw new Error('User ID not found');
+          throw new Error("User ID not found");
         }
 
-        const response = await axios.get(`http://localhost:5000/api/balances/${userId}`, {
-          withCredentials: true
-        });
+        const response = await axios.get(
+          `http://localhost:5000/api/balances/${userId}`,
+          {
+            withCredentials: true,
+          },
+        );
 
         if (!response.data.success) {
-          throw new Error(response.data["message"] || 'Failed to fetch balance');
+          throw new Error(
+            response.data["message"] || "Failed to fetch balance",
+          );
         }
 
         setData(response.data);
-      } catch (err:any) {
-        console.error('Balance fetch error:', err);
-        setError(err.response?.data?.message || err.message || 'Failed to fetch balance');
+      } catch (err: any) {
+        console.error("Balance fetch error:", err);
+        setError(
+          err.response?.data?.message ||
+            err.message ||
+            "Failed to fetch balance",
+        );
       } finally {
         setLoading(false);
       }
@@ -65,7 +74,7 @@ const BalanceComponent = () => {
     <div className="balance-container">
       <h2>Account Balance</h2>
       <div className="balance-amount">{data.balance}</div>
-      
+
       <div className="account-details">
         <p>Account Number: {data.accountNumber}</p>
         {data.currency && <p>Currency: {data.currency}</p>}

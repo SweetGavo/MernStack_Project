@@ -20,7 +20,6 @@ You application is expected to have the following database structure
   - transferDescription
   - createdAt
   - updatedAt
-  
 - COLLECTION 2 - balances
 
   - account nr (unique, 10 digits)
@@ -50,20 +49,21 @@ The API you are to develop should be able to handle a transfer request of the fo
 
 ### Endpoints to test
 
-| Method | Endpoint                           | Enable a user to:                                            |
-| :----- | :--------------------------------- | :----------------------------------------------------------- |
-| POST   | /signup                            | Enable user signup |
-| POST   | /login                             | Enable user to login |
+| Method | Endpoint                           | Enable a user to:                                                 |
+| :----- | :--------------------------------- | :---------------------------------------------------------------- |
+| POST   | /signup                            | Enable user signup                                                |
+| POST   | /login                             | Enable user to login                                              |
 | POST   | /create-account                    | Enable user to create an account stored in the balance collection |
-| GET    | /balance/:accountNumber            | Getting balance for a particular account number              |
-|        | /balance/:userId                   | Getting balance for a particular user                        |
-| GET    | /balance                           | Getting all accounts and their balance                       |
-| POST   | /transfer                          | To make a transaction to another account                     |
-| GET.   | /transaction/:accountNumber        | gets all transactions of a particular user                   |
-| GET.   | /transaction/credit/:accountNumber | gets all credit transactions of a particular user            |
-| GET.   | /transaction/debit/:accountNumber  | gets all debit transactions of a particular user             |
+| GET    | /balance/:accountNumber            | Getting balance for a particular account number                   |
+|        | /balance/:userId                   | Getting balance for a particular user                             |
+| GET    | /balance                           | Getting all accounts and their balance                            |
+| POST   | /transfer                          | To make a transaction to another account                          |
+| GET.   | /transaction/:accountNumber        | gets all transactions of a particular user                        |
+| GET.   | /transaction/credit/:accountNumber | gets all credit transactions of a particular user                 |
+| GET.   | /transaction/debit/:accountNumber  | gets all debit transactions of a particular user                  |
 
 ## Clarification
+
 - implement pagination, with limit of 5 values for each page
 - Create Authentication and Authorization for users using a middleware function
 - Implement Validation for incoming request using Joi
@@ -77,11 +77,13 @@ The API you are to develop should be able to handle a transfer request of the fo
 - Test all endpoints (GET, POST, PUT, DELETE)
 
 ## Documentation
+
 - document your API with postman
 
 ## Hosting
+
 - Host your application on Heroku
 
-
 ## 2. Mongo Aggregation Exercise.
+
 - Go through the readme file in the Folder `MongoAggregation`

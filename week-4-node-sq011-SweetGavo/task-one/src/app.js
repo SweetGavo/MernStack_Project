@@ -1,4 +1,4 @@
-import FileTree from './fileTree';
+import FileTree from "./fileTree";
 
 export function createFileTree(input) {
   const fileTree = new FileTree();

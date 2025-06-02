@@ -30,7 +30,7 @@ async function analyseFiles(inputPaths: string[], outputPath: string) {
     });
 
     const header = records[0];
-    const emailIndex = header.findIndex(h => h.toLowerCase() === 'email');
+    const emailIndex = header.findIndex((h) => h.toLowerCase() === 'email');
 
     if (emailIndex === -1) {
       console.warn(`⚠️ No 'email' column in: ${filePath}`);
@@ -58,7 +58,10 @@ async function analyseFiles(inputPaths: string[], outputPath: string) {
     uniqueEmails: emailSet.size,
     duplicateEmails,
     domains: Object.fromEntries(
-      Object.entries(domainMap).map(([domain, emails]) => [domain, Array.from(emails)])
+      Object.entries(domainMap).map(([domain, emails]) => [
+        domain,
+        Array.from(emails),
+      ]),
     ),
   };
 

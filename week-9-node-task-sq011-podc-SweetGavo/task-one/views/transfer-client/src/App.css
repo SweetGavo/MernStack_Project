@@ -57,7 +57,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .app-container {
@@ -69,7 +69,11 @@
 
 /* Header Styles */
 .app-header {
-  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  background: linear-gradient(
+    135deg,
+    var(--primary-color),
+    var(--secondary-color)
+  );
   color: white;
   padding: 1.5rem 2rem;
   box-shadow: var(--box-shadow);
@@ -152,8 +156,14 @@
 
 /* Animation */
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .card {
@@ -167,11 +177,15 @@
 .balance-container {
   margin: 40px auto;
   padding: 24px 20px;
-  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  background: linear-gradient(
+    135deg,
+    var(--primary-color),
+    var(--secondary-color)
+  );
   border-radius: 16px;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
   text-align: center;
-  font-family: 'Segoe UI', Arial, sans-serif;
+  font-family: "Segoe UI", Arial, sans-serif;
 }
 
 .balance-container h2 {
@@ -201,14 +215,15 @@
   margin: 6px 0;
 }
 
-
-
-
 .transaction-history {
   max-width: 800px;
   margin: 2rem auto;
   padding: 1.5rem;
-  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  background: linear-gradient(
+    135deg,
+    var(--primary-color),
+    var(--secondary-color)
+  );
   border-radius: 12px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
@@ -310,8 +325,6 @@
   text-align: center;
 }
 
-
-
 /* hide balance */
 
 .accountbalance-card {
@@ -330,7 +343,6 @@
   letter-spacing: 2px; /* Makes "*****" look better */
 }
 
-
 .toggle-balance-button {
   position: absolute;
   top: 10px;
@@ -344,13 +356,12 @@
   cursor: pointer;
   font-size: 14px;
   font-weight: 500;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: all 0.2s ease;
 }
 
 .toggle-balance-button:hover {
   background-color: #a3a9ae;
-
 }
 
 /* Header Controls */
@@ -377,7 +388,7 @@
   cursor: pointer;
   font-size: 14px;
   font-weight: 500;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: all 0.2s ease;
   min-width: 120px;
 }
@@ -404,7 +415,7 @@
   cursor: pointer;
   font-size: 14px;
   font-weight: 500;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: all 0.2s ease;
 }
 

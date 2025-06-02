@@ -1,3 +1,1 @@
-import React, { Componet } from 'react'
-
-
+import React, { Componet } from "react";

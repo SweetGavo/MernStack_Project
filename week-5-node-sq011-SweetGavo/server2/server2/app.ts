@@ -1,20 +1,15 @@
 import http, { IncomingMessage, Server, ServerResponse } from "http";
 import { parser } from "html-metadata-parser";
 
-
-
 const server: Server = http.createServer(
-
   async (req: IncomingMessage, res: ServerResponse) => {
-
     if (req.method === "GET") {
       const url: any = `https://${req.url?.split("/")[1]}`;
-      
+
       const message: any = {
         images: [],
         description: "none",
-        title: null
-    
+        title: null,
       };
 
       if (!req.url || !req.url.startsWith("/")) {
@@ -34,19 +29,15 @@ const server: Server = http.createServer(
         const keys = Object.keys(message);
 
         for (let i = 0; i <= 2; i++) {
-          message[`${keys[i]}`] = message[`${keys[i]}`] == undefined ? "none" : message[`${keys[i]}`];
+          message[`${keys[i]}`] =
+            message[`${keys[i]}`] == undefined ? "none" : message[`${keys[i]}`];
         }
 
-        err = false
-
+        err = false;
       } catch (error) {
-
-        err = true
-
+        err = true;
       } finally {
-       
         if (err) {
-          
           res.writeHead(400, { "Content-Type": "application/json" });
           res.end(JSON.stringify({ message: "Invalid request" }));
           return 0;
@@ -57,12 +48,11 @@ const server: Server = http.createServer(
         }
       }
     }
-  }
+  },
 );
 
 server.listen(3002, () => {
-  console.log(`Server is presently running on port. Go to http://localhost:3002`);
-  
+  console.log(
+    `Server is presently running on port. Go to http://localhost:3002`,
+  );
 });
-
-

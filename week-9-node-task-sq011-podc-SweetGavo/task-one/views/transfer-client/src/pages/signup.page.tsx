@@ -1,46 +1,52 @@
-import { FormEvent, useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import axios from 'axios';
-import "../styles/signup.css"; 
+import { FormEvent, useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import axios from "axios";
+import "../styles/signup.css";
 
 const Signup = () => {
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-    phone_number: '',
-    dob: ''
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    phone_number: "",
+    dob: "",
   });
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    setError('');
-    
+    setError("");
+
     if (formData.password !== formData.confirmPassword) {
-      setError('Passwords do not match');
+      setError("Passwords do not match");
       return;
     }
 
     setIsLoading(true);
 
     try {
-      const response = await axios.post('http://localhost:5000/api/users/register', formData, { withCredentials: true });
-      
+      const response = await axios.post(
+        "http://localhost:5000/api/users/register",
+        formData,
+        { withCredentials: true },
+      );
+
       if (response.status === 201) {
-        navigate('/home');
+        navigate("/home");
       }
-    } catch (err:any) {
-      setError(err.response?.data?.message || 'Registration failed. Please try again.');
+    } catch (err: any) {
+      setError(
+        err.response?.data?.message || "Registration failed. Please try again.",
+      );
     } finally {
       setIsLoading(false);
     }
@@ -52,17 +58,21 @@ const Signup = () => {
         <div className="signup-header">
           <h2 className="signup-title">Create your account</h2>
           <p className="signup-subtitle">
-            Already have an account?{' '}
+            Already have an account?{" "}
             <Link to="/login" className="signup-link">
               Sign in
             </Link>
           </p>
         </div>
-        
+
         {error && (
           <div className="error-message">
             <svg className="error-icon" viewBox="0 0 20 20" fill="currentColor">
-              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+              <path
+                fillRule="evenodd"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                clipRule="evenodd"
+              />
             </svg>
             <span className="error-text">{error}</span>
           </div>
@@ -195,22 +205,23 @@ const Signup = () => {
                 className="remember-checkbox"
               />
               <label htmlFor="terms" className="form-label">
-                I agree to the <a href="#" className="terms-link">Terms and Conditions</a>
+                I agree to the{" "}
+                <a href="#" className="terms-link">
+                  Terms and Conditions
+                </a>
               </label>
             </div>
           </div>
 
-          <button
-            type="submit"
-            disabled={isLoading}
-            className="signup-button"
-          >
+          <button type="submit" disabled={isLoading} className="signup-button">
             {isLoading ? (
               <>
                 <div className="spinner"></div>
                 Creating account...
               </>
-            ) : 'Sign up'}
+            ) : (
+              "Sign up"
+            )}
           </button>
         </form>
       </div>

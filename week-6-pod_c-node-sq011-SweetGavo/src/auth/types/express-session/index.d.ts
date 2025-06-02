@@ -4,6 +4,6 @@
 //   interface SessionData {
 //     userId: { [key: string]: any };
 //     email: string;
-   
+
 //   }
 // }

@@ -1,13 +1,18 @@
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
-import './App.css';
-import Balance from './components/balance/Balance.component';
-import TransactionHistory from './components/transferDetails/transferHistoryDetails';
-import MakeTransfer from './components/makeTransfer/makeTransfer';
-import Login from './pages/login.page';
-import Signup from './pages/signup.page';
-import ProtectedRoute from './components/auth/protectedRoutes';
-import axios from 'axios';
+import React, { useState } from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useNavigate,
+} from "react-router-dom";
+import "./App.css";
+import Balance from "./components/balance/Balance.component";
+import TransactionHistory from "./components/transferDetails/transferHistoryDetails";
+import MakeTransfer from "./components/makeTransfer/makeTransfer";
+import Login from "./pages/login.page";
+import Signup from "./pages/signup.page";
+import ProtectedRoute from "./components/auth/protectedRoutes";
+import axios from "axios";
 
 // Main Dashboard Component
 const Dashboard = () => {
@@ -16,14 +21,17 @@ const Dashboard = () => {
 
   const handleLogout = async () => {
     try {
-      await axios.get('http://localhost:5000/users/logout', { withCredentials: true });
-      document.cookie = 'Token=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';
-      document.cookie = 'Uid=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';
-      document.cookie = 'Username=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';
-      navigate('/login');
+      await axios.get("http://localhost:5000/users/logout", {
+        withCredentials: true,
+      });
+      document.cookie = "Token=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+      document.cookie = "Uid=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+      document.cookie =
+        "Username=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+      navigate("/login");
     } catch (error) {
-      console.error('Logout failed:', error);
-      navigate('/login');
+      console.error("Logout failed:", error);
+      navigate("/login");
     }
   };
 
@@ -53,10 +61,10 @@ const Dashboard = () => {
               )}
               <div className="balance-controls">
                 <button
-                  className={`toggle-balance-button ${showBalance ? 'active' : ''}`}
-                  onClick={() => setShowBalance(prev => !prev)}
+                  className={`toggle-balance-button ${showBalance ? "active" : ""}`}
+                  onClick={() => setShowBalance((prev) => !prev)}
                 >
-                  {showBalance ? 'Hide Balance' : 'Show Balance'}
+                  {showBalance ? "Hide Balance" : "Show Balance"}
                 </button>
               </div>
             </div>
@@ -75,7 +83,9 @@ const Dashboard = () => {
       </main>
 
       <footer className="app-footer">
-        <p>© {new Date().getFullYear()} MoneyTransfer Pro. All rights reserved.</p>
+        <p>
+          © {new Date().getFullYear()} MoneyTransfer Pro. All rights reserved.
+        </p>
       </footer>
     </div>
   );

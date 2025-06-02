@@ -1,56 +1,55 @@
-import createError from 'http-errors';
-import express, { Request, Response, NextFunction } from 'express';
-import path from 'path';
-import cookieParser from 'cookie-parser';
-import logger from 'morgan';
-import indexRouter from './routes/index';
-import usersRouter from './routes/user';
-import session from 'express-session'; 
+import createError from "http-errors";
+import express, { Request, Response, NextFunction } from "express";
+import path from "path";
+import cookieParser from "cookie-parser";
+import logger from "morgan";
+import indexRouter from "./routes/index";
+import usersRouter from "./routes/user";
+import session from "express-session";
 
 const app = express();
 
 // Middleware
-app.use(logger('dev'));
+app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-
-app.use(session({
-    secret: 'your-secret-key',
+app.use(
+  session({
+    secret: "your-secret-key",
     resave: false,
     saveUninitialized: true,
     cookie: {
-        secure: false, 
-        maxAge: 1000 * 60 * 60 
-      }
-}) as unknown as express.RequestHandler);
-
+      secure: false,
+      maxAge: 1000 * 60 * 60,
+    },
+  }) as unknown as express.RequestHandler,
+);
 
 // Serve static files (CSS, JS, images)
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, "public")));
 
 // HTML pages
-app.get('/', (req: Request, res: Response) => {
-  res.sendFile(path.join(__dirname, '../views/index.html'));
+app.get("/", (req: Request, res: Response) => {
+  res.sendFile(path.join(__dirname, "../views/index.html"));
 });
 
-app.get('/login', (req: Request, res: Response) => {
-  res.sendFile(path.join(__dirname, '../views/login.html'));
+app.get("/login", (req: Request, res: Response) => {
+  res.sendFile(path.join(__dirname, "../views/login.html"));
 });
 
-app.get('/signup', (req: Request, res: Response) => {
-  res.sendFile(path.join(__dirname, '../views/signup.html'));
+app.get("/signup", (req: Request, res: Response) => {
+  res.sendFile(path.join(__dirname, "../views/signup.html"));
 });
 
 // API Routes
-app.use('/api/books', indexRouter);
-app.use('/api', usersRouter);
-
+app.use("/api/books", indexRouter);
+app.use("/api", usersRouter);
 
 // 404 Handler
 app.use((req: Request, res: Response, next: NextFunction) => {
-  next(createError(404, 'Page Not Found'));
+  next(createError(404, "Page Not Found"));
 });
 
 // General Error Handler

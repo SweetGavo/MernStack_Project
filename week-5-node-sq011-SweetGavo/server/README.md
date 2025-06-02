@@ -1,6 +1,7 @@
-# 1  Typescript - File Update
+# 1 Typescript - File Update
 
 ### Setup
+
 1. `yarn tsc` - to transpile to js lib/app
 2. `yarn serve` - to start the server
 

@@ -6,10 +6,10 @@ export interface ISession extends Session {
   userName?: string;
 }
 
-declare module 'express-session' {
-    interface SessionData {
-      id?: any;
-      email?: string;
-      userName?: string;
-    }
+declare module "express-session" {
+  interface SessionData {
+    id?: any;
+    email?: string;
+    userName?: string;
   }
+}

@@ -79,13 +79,18 @@
                 required
               />
             </div>
-            <button type="submit" class="btn btn-primary">Register</button>
+            <button type="submit" class="btn btn-primary">
+              Register
+            </button>
           </form>
           <hr />
-          <p> Already have an account? <a href="/login">Login</a></p>
+          <p>
+            {" "}
+            Already have an account? <a href="/login">Login</a>
+          </p>
         </div>
         <div class="col-md-3"></div>
       </div>
     </div>
   </body>
-</html>
+</html>;

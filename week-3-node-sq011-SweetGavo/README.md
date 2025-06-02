@@ -29,6 +29,7 @@ The solution to question 2 should go in `src/report.js`
 Ensure to write tests as necessary for any utility functions that you may create.
 
 ---
+
 Do not delete the `node_modules` folder in the `src` folder, it is a hack to get the `api` files to be absolute.
 
 You need the `api` module for Question 1-2.

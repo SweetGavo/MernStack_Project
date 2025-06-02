@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
-import { Navigate, Outlet } from 'react-router-dom';
-import axios from 'axios';
+import { useEffect, useState } from "react";
+import { Navigate, Outlet } from "react-router-dom";
+import axios from "axios";
 
 const ProtectedRoute = () => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
@@ -8,7 +8,9 @@ const ProtectedRoute = () => {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        await axios.get('http://localhost:5000/users/auth/verify', { withCredentials: true });
+        await axios.get("http://localhost:5000/users/auth/verify", {
+          withCredentials: true,
+        });
         setIsAuthenticated(true);
       } catch (err) {
         setIsAuthenticated(false);

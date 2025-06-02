@@ -1,14 +1,14 @@
-import { existsSync } from 'fs';
-import { extname } from 'path';
+import { existsSync } from "fs";
+import { extname } from "path";
 
 const isTextFile = (filePath: string): boolean => {
-  const textExtensions = ['.txt', '.log', '.md'];
+  const textExtensions = [".txt", ".log", ".md"];
   return textExtensions.includes(extname(filePath).toLowerCase());
 };
 
 const isValidEmailFormat = (email: string): boolean => {
-  // Updated regex without unnecessary escapes
-  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  // Remove unnecessary escapes from the regex
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+[a-zA-Z]{2,}$/;
   return emailRegex.test(email);
 };
 
@@ -17,7 +17,7 @@ export const validateInputs = (
   outputFile: string,
 ): string | null => {
   if (!inputPaths.length) {
-    return 'No input files provided';
+    return "No input files provided";
   }
 
   for (const path of inputPaths) {
@@ -30,12 +30,12 @@ export const validateInputs = (
   }
 
   if (!outputFile) {
-    return 'No output file specified';
+    return "No output file specified";
   }
 
   if (!isTextFile(outputFile)) {
-    return 'Output file must be a text file';
+    return "Output file must be a text file";
   }
 
   return null;
-}; 
+};
