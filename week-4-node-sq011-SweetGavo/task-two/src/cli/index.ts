@@ -18,15 +18,24 @@ program
       const inputFiles = input.map((file: string) => path.resolve(file));
       const outputFile = path.resolve(output);
       
-      const validationResult = await validateEmailAddresses(inputFiles, outputFile);
+      const validationResult = await validateEmailAddresses(
+        inputFiles,
+        outputFile
+      );
+
       if (typeof validationResult === 'string') {
         console.error(chalk.red(validationResult));
         return;
       }
 
       await analyseFiles(inputFiles, outputFile);
-      console.log(chalk.green('Analysis complete! Results written to:', outputFile));
-    } catch (error: unknown) {
+      console.log(
+        chalk.green(
+          'Analysis complete! Results written to:',
+          outputFile
+        )
+      );
+    } catch (error) {
       if (error instanceof Error) {
         console.error(chalk.red('Error:', error.message));
       } else {
@@ -41,8 +50,7 @@ program
   .action((input, output) => {
     const inputFiles = sync(input);
     if (!inputFiles.length) {
-      console.error(chalk.red('❌ No CSV files found at provided input path.'));
-      process.exit(1);
+      throw new Error('No CSV files found at provided input path.');
     }
 
     const outputFile = path.resolve(output);
