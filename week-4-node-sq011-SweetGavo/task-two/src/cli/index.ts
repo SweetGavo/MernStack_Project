@@ -3,23 +3,36 @@ import { sync } from 'glob';
 import path from 'path';
 import chalk from 'chalk';
 
-import analyseFiles from '../analysis';
 import validateEmailAddresses from '../validation';
+import analyseFiles from '../analysis';
 
 const program = new Command();
 
 program
-  .command('analysis <input> <output>')
-  .description('Analyse emails for TLDs, duplicates, and domain grouping')
-  .action((input, output) => {
-    const inputFiles = sync(input);
-    if (!inputFiles.length) {
-      console.error(chalk.red('❌ No CSV files found at provided input path.'));
-      process.exit(1);
-    }
+  .version('1.0.0')
+  .description('Email analysis tool')
+  .option('-i, --input <files...>', 'Input files to analyze')
+  .option('-o, --output <file>', 'Output file for results')
+  .action(async ({ input, output }) => {
+    try {
+      const inputFiles = input.map((file: string) => path.resolve(file));
+      const outputFile = path.resolve(output);
+      
+      const validationResult = await validateEmailAddresses(inputFiles, outputFile);
+      if (typeof validationResult === 'string') {
+        console.error(chalk.red(validationResult));
+        return;
+      }
 
-    const outputFile = path.resolve(output);
-    analyseFiles(inputFiles, outputFile);
+      await analyseFiles(inputFiles, outputFile);
+      console.log(chalk.green('Analysis complete! Results written to:', outputFile));
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.error(chalk.red('Error:', error.message));
+      } else {
+        console.error(chalk.red('An unknown error occurred'));
+      }
+    }
   });
 
 program

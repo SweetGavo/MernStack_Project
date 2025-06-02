@@ -57,12 +57,10 @@ async function analyseFiles(inputPaths: string[], outputPath: string) {
     totalEmails: emailSet.size + duplicateEmails.length,
     uniqueEmails: emailSet.size,
     duplicateEmails,
-    domains: Object.fromEntries(
-      Object.entries(domainMap).map(([domain, emails]) => [
-        domain,
-        Array.from(emails),
-      ]),
-    ),
+    domains: Object.entries(domainMap).reduce((obj, [domain, emails]) => {
+      obj[domain] = Array.from(emails);
+      return obj;
+    }, {} as Record<string, string[]>),
   };
 
   const finalOutput = path.resolve(outputPath);

@@ -10,9 +10,9 @@ import { parse } from 'csv-parse/sync';
  *
  */
 
-const isValidEmail = (email: string): boolean => {
-  const re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,})+$/;
-  return re.test(email.toLowerCase());
+const isValidEmailFormat = (email: string): boolean => {
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+[a-zA-Z]{2,}$/;
+  return emailRegex.test(email);
 };
 
 const validateMx = (domain: string): Promise<boolean> => {
@@ -39,7 +39,7 @@ async function validateEmailAddresses(
     });
   }
 
-  const validFormat = emails.filter(isValidEmail);
+  const validFormat = emails.filter(isValidEmailFormat);
   const result: { email: string; hasMX: boolean }[] = [];
 
   for (const email of validFormat) {
