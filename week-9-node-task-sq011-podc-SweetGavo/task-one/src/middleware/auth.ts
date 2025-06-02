@@ -4,7 +4,7 @@ import { NextFunction, Request, Response } from "express";
 const jwt = require("jsonwebtoken");
 const asyncHandler = require("express-async-handler");
 
-const protect = asyncHandler(
+export const protect = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
     let token = req.cookies.Token;
     if (token) {
@@ -37,4 +37,3 @@ const protect = asyncHandler(
     }
   }
 );
-module.exports = { protect };

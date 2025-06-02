@@ -12,7 +12,7 @@ async function connectDB() {
             autoIndex: true,
             useUnifiedTopology: true,
         });
-        console.log('Connected to MongoDB');
+        console.log('CONNECTED TO **** TRANSFER-SERVICE \n***********************************************************************');
     }
     catch (error) {
         console.error(error);

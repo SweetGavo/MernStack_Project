@@ -1,8 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.protect = void 0;
 const jwt = require("jsonwebtoken");
 const asyncHandler = require("express-async-handler");
-const protect = asyncHandler(async (req, res, next) => {
+exports.protect = asyncHandler(async (req, res, next) => {
     let token = req.cookies.Token;
     if (token) {
         try {
@@ -34,4 +35,3 @@ const protect = asyncHandler(async (req, res, next) => {
         throw new Error("Not authorized, no token");
     }
 });
-module.exports = { protect };

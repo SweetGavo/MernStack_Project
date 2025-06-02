@@ -1,13 +1,22 @@
 "use strict";
-const bal = require('mongoose');
-const balanceSchema = new bal.Schema({
-    account: {
-        type: Number,
-        unique: true
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Balance = exports.balanceSchema = void 0;
+const mongoose_1 = require("mongoose");
+const mongoose = require('mongoose');
+exports.balanceSchema = new mongoose.Schema({
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
     },
-    balance: Number,
-    userId: Number
+    accountNumber: {
+        type: Number,
+        required: true
+    },
+    balance: {
+        type: Number,
+        default: 0
+    }
 }, {
-    timestamps: true
+    timestamps: true,
 });
-module.exports = bal.model("sheet", balanceSchema);
+exports.Balance = (0, mongoose_1.model)('Balance', exports.balanceSchema);

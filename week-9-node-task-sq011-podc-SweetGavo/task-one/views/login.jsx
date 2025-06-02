@@ -1,7 +1,5 @@
 <html lang="en">
-  <%- include("./partial/header.ejs") %>
   <body>
-    <%- include("./partial/navbar.ejs") %>
 
     <div class="containerss">
       <div class="row">

@@ -1,0 +1,413 @@
+/* .App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+
+
+  
+} */
+
+/* Base Styles */
+:root {
+  --primary-color: #4361ee;
+  --secondary-color: #3f37c9;
+  --accent-color: #4cc9f0;
+  --light-color: #f8f9fa;
+  --dark-color: #212529;
+  --success-color: #4bb543;
+  --danger-color: #ff4444;
+  --border-radius: 12px;
+  --box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #e1e5ea;
+}
+
+/* Header Styles */
+.app-header {
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  color: white;
+  padding: 1.5rem 2rem;
+  box-shadow: var(--box-shadow);
+}
+
+.logo-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.app-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.app-subtitle {
+  font-size: 1rem;
+  opacity: 0.9;
+  font-weight: 400;
+}
+
+/* Main Content */
+.main-content {
+  flex: 2;
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.dashboard-grid {
+  display: flexbox;
+  grid-template-columns: 1fr 2fr;
+  gap: 2rem;
+}
+
+@media (max-width: 768px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Card Styles */
+.card {
+  background: --light-color;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  padding: 1.5rem;
+  height: auto;
+}
+
+.balance-card {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.transactions-card {
+  overflow: hidden;
+}
+
+.section-title {
+  font-size: 1.5rem;
+  color: var(--dark-color);
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid #eee;
+}
+
+/* Footer Styles */
+.app-footer {
+  background-color: var(--dark-color);
+  color: white;
+  text-align: center;
+  padding: 1.5rem;
+  font-size: 0.9rem;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.card {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+.transactions-card {
+  animation: fadeIn 0.5s 0.1s ease-out forwards;
+}
+
+.balance-container {
+  margin: 40px auto;
+  padding: 24px 20px;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+  text-align: center;
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+.balance-container h2 {
+  margin-bottom: 16px;
+  color: #22223b;
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.balance-amount {
+  font-size: 2.2rem;
+  font-weight: bold;
+  color: #2a9d8f;
+  margin-bottom: 18px;
+  letter-spacing: 1px;
+}
+
+.account-details {
+  background: #f6f6f6;
+  border-radius: 8px;
+  padding: 12px 0;
+  font-size: 1rem;
+  color: #4a4e69;
+}
+
+.account-details p {
+  margin: 6px 0;
+}
+
+
+
+
+.transaction-history {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.history-title {
+  color: #2d3748;
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.transaction-section {
+  margin-bottom: 2rem;
+}
+
+.section-title {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.debit-title {
+  color: #e53e3e;
+}
+
+.credit-title {
+  color: #38a169;
+}
+
+.title-icon {
+  font-size: 1.4rem;
+}
+
+.transaction-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.transaction-item {
+  padding: 1rem;
+  margin-bottom: 0.75rem;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.2s ease;
+}
+
+.debit-item {
+  background-color: #fff5f5;
+  border-left: 4px solid #e53e3e;
+}
+
+.credit-item {
+  background-color: #f0fff4;
+  border-left: 4px solid #38a169;
+}
+
+.transaction-item:hover {
+  transform: translateX(4px);
+}
+
+.transaction-amount {
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin-bottom: 0.25rem;
+}
+
+.debit-item .transaction-amount {
+  color: #e53e3e;
+}
+
+.credit-item .transaction-amount {
+  color: #38a169;
+}
+
+.transaction-details {
+  color: #4a5568;
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.transaction-note {
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 4px;
+  font-size: 0.85rem;
+  color: #4a5568;
+}
+
+.no-transactions {
+  color: #718096;
+  font-style: italic;
+  padding: 1rem;
+  text-align: center;
+}
+
+
+
+/* hide balance */
+
+.accountbalance-card {
+  text-align: center; /* Center everything inside the card */
+  padding: 1rem;
+  justify-content: center;
+}
+
+.accountbalance-label {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.hidden-accountbalance {
+  font-size: 1.2rem;
+  letter-spacing: 2px; /* Makes "*****" look better */
+}
+
+
+.toggle-balance-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 1000;
+  padding: 8px 12px;
+  border-radius: 4px;
+  border: none;
+  background-color: #f0f0f0;
+  color: #333;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: all 0.2s ease;
+}
+
+.toggle-balance-button:hover {
+  background-color: #a3a9ae;
+
+}
+
+/* Header Controls */
+.header-controls {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+/* Balance Controls */
+.balance-controls {
+  display: flex;
+  justify-content: center;
+  margin-top: 1.5rem;
+  padding: 0 1rem;
+}
+
+.toggle-balance-button {
+  padding: 8px 12px;
+  border-radius: 4px;
+  border: none;
+  background-color: #f0f0f0;
+  color: #333;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: all 0.2s ease;
+  min-width: 120px;
+}
+
+.toggle-balance-button:hover {
+  background-color: #a3a9ae;
+}
+
+.toggle-balance-button.active {
+  background-color: #4361ee;
+  color: white;
+}
+
+.toggle-balance-button.active:hover {
+  background-color: #3a56d4;
+}
+
+.logout-button {
+  padding: 8px 12px;
+  border-radius: 4px;
+  border: none;
+  background-color: #ff4444;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: all 0.2s ease;
+}
+
+.logout-button:hover {
+  background-color: #cc0000;
+}

@@ -9,7 +9,7 @@ export async function connectDB (){
         useUnifiedTopology: true,
                 } as ConnectOptions
     ) 
-    console.log('Connected to MongoDB');
+    console.log('CONNECTED TO  DATABASE TRANSFER-SERVICE \n***********************************************************************');
     } catch (error) {
         console.error(error)
         process.exit(1)

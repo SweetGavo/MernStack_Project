@@ -1,8 +1,5 @@
 <html lang="en">
-  <%- include("./partial/header.ejs") %>
   <body>
-    <%- include("./partial/navBar.ejs") %>
-
     <div class="containerss">
       <div class="row">
         <div class="col-md-3"></div>
@@ -54,7 +51,6 @@
                 placeholder="Enter password"
                 required
                 pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
-                required
               />
             </div>
             <div class="form-group">
